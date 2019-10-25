@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
  * Diese Klasse dient zum Testen des Projektes
  * 
  * 
- * @author Antonius Mende -
- * @author Anika Herbermann -
- * @author Matthias Wolff - 458766
+ * @author Antonius Mende - 461 328
+ * @author Anika Herbermann - 461 655
+ * @author Matthias Wolff - 458 766
  * 
  * @author "Gruppe_A"
  */
