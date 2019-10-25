@@ -1,6 +1,7 @@
 package aufgabe03;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -55,6 +56,54 @@ class ProjektTest {
 
 	}
 
-	// Weitere Tests?
+	@Test
+	void testLeer() {
+		Projekt p = new Projekt("");
+		assertEquals(p.getMinDauer(), 0, "Leeres Projekt hat ungueltige Bearbeitungszeit");
+	}
+
+	@Test
+	void testLinear() {
+		Projekt p = new Projekt("linear");
+		Teilaufgabe v1 = new Teilaufgabe("v1", 10);
+		Teilaufgabe v2 = new Teilaufgabe("v2", 25);
+		Teilaufgabe v3 = new Teilaufgabe("v3", 15);
+		v1.addNachfolger(v2);
+		v2.addNachfolger(v3);
+		p.fuegeAufgabeHinzu(v1);
+		p.fuegeAufgabeHinzu(v2);
+		p.fuegeAufgabeHinzu(v3);
+		assertEquals(p.getMinDauer(), 50, "Lineares Projekt hat ungueltige Bearbeitungszeit");
+	}
+
+	@Test
+	void testNegativ() {
+		boolean thrown = false;
+		Projekt p = new Projekt("linear");
+		try {
+			Teilaufgabe v1 = new Teilaufgabe("v1", -10);
+			Teilaufgabe v2 = null;
+
+		} catch (IllegalArgumentException e) {
+			thrown = true;
+
+		}
+		assertEquals(thrown, true, "negative Bearbeitungszeit ist moeglich");
+	}
+
+	@Test
+	void testNull() {
+		boolean thrown = false;
+		Projekt p = new Projekt("linear");
+		try {
+			Teilaufgabe v2 = null;
+			p.fuegeAufgabeHinzu(v2);
+
+		} catch (IllegalArgumentException e) {
+			thrown = true;
+
+		}
+		assertEquals(thrown, true, "null-Aufgabe eingefuegt");
+	}
 
 }
