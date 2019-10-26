@@ -1,0 +1,11 @@
+#Ignore Latex-Hilfsdateien
+*.out
+*.log
+**/*.synctex.gz
+*.aux
+
+#Ignore Java-Hilfsdateien
+*.class
+*.classpath
+**/.project
+**/.settings/*
