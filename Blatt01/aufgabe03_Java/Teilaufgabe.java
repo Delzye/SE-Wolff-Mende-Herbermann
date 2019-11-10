@@ -1,5 +1,3 @@
-package aufgabe03;
-
 import java.util.LinkedList;
 
 /**

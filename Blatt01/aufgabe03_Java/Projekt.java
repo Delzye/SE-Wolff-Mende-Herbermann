@@ -1,11 +1,9 @@
-package aufgabe03;
-
 import java.util.LinkedList;
 
 /**
  * 
  * Diese Klasse stellt ein Projekt bestehend aus mehreren miteinander
- * verknüpften Teilaufgaben dar
+ * verknï¿½pften Teilaufgaben dar
  * 
  * @author Antonius Mende - 461 328
  * @author Anika Herbermann - 461 655
