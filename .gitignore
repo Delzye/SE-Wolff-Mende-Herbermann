@@ -1,3 +1,4 @@
+#Ig  
 #Ignore Latex-Hilfsdateien
 *.out
 *.log
@@ -9,3 +10,6 @@
 *.classpath
 **/.project
 **/.settings/*
+
+#Ignore Dia-Hilfsdateien
+*.dia~
