@@ -1,9 +1,9 @@
-#Ig  
 #Ignore Latex-Hilfsdateien
 *.out
 *.log
 **/*.synctex.gz
 *.aux
+**/.metadata
 
 #Ignore Java-Hilfsdateien
 *.class
