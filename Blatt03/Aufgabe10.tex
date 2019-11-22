@@ -1,0 +1,36 @@
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 3 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+\section*{Aufgabe 10}
+\subsection*{a}
+context Vorfuehrung\\ \indent
+\quad inv:\\ \indent
+\qquad self.start <= self.ende\\ \indent
+\qquad self.grundpreis > 0\\ \indent
+\qquad self.name !=  \enquote{ }
+
+\subsection*{b}
+context Bestellung \\ \indent
+\quad inv: \\ \indent
+\qquad Bestellung.allInstances -> select(best | best.vorfuehrung == self.vorfuehrung)\\ \indent \qquad -> forAll(best | best.reservierteSitze -> intersection(self.reservierteSitze) -> size == 0)
+\subsection*{c}
+context Bestellung::cancel()\\ \indent
+\quad pre:\\ \indent
+\qquad self.Zeitpunkt < vorfuehrung.start\\ \indent
+\quad post: \\ \indent
+\qquad not \quad Bestellung.allInstances -> exists(best | (best.nummer == self.nummer) and (best.vorfuerhung == self.vorfuehrung))
+
+\subsection*{d}
+context Bestellung\\ \indent
+\quad inv: \\ \indent
+\qquad  (self.vorfuehrung.saal.nummer == 42) implies (self.vorfuehrung.ende < 11.11.2020)
+\end{document}
