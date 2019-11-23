@@ -1,0 +1,36 @@
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}
+\usepackage{float}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 3 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+\section*{Aufgabe 10}
+\begin{enumerate} [a)]
+	\item \begin{enumerate} [1.]
+		\item context Vorfuehrung \\
+		inv: start.Date <= end.Date
+		\item context Vorfuehrung\\
+		inv: grundpreis > 0.0
+		\item context Vorfuehrung \\
+		inv: name <> “”
+	\end{enumerate}
+\item \phantom{a}\\
+\begin{tabular}{cl}
+	context Vorfuehrung&\\
+	inv: Bestellung.allInstances->&\\
+	&select(b|b.Vorfuehrung.start = Vorfuehrung.start)->\\
+	&forAll(b1,b2 | b1<> b2 implies b1.reservierteSitze → excludesAll(b2.reservierteSitze))\\
+\end{tabular}
+\item context Bestellung:: cancel()\\
+pre: Zeitpunkt < Vorfuehrung.start
+\item context Vorfuehrung \\
+inv: saal.nummer = 42 implies ende < 11.11.2020
+\end{enumerate}
+\end{document}
