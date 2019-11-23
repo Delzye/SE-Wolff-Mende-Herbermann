@@ -1,0 +1,81 @@
+\newcommand{\obenlinks}{Software Engineering}% hier Name der Veranstaltung eintragen
+
+git 
+\newcommand{\name}[1]{$\backslash$ #1 $\backslash$ \quad}		
+
+\input{config.tex}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 3 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+%Selbstdefinierter Befehl \name{<Name>} für Funktionen, Daten und Leistungen
+\section*{Aufgabe 8)}
+\subsection*{1 Zielbestimmung}
+Die Software soll eine graphische Benutzeroberfläche zur Bestellung von Pizzen zur Verfügung stellen und die Bestellung zusammen mit den Kontaktdaten des Kunden an die Pizzeria übermitteln.
+\subsection*{2 Anwendungsbereiche und Zielgruppen}
+Die Software soll Kunden eine einfache Bestellung ihrer Pizzen ermöglichen.\\
+Die Zielgruppe besteht aus Personen, die eine Pizza bestellen wollen
+\subsection*{3 Produktfunktionen}
+\name{LF10} Auswahl von Pizzen und ihrer Anzahl aus einer festen Pizzaliste\\
+\name{LF20} Anmelden eines Benutzerkontos\\
+\name{LF30} Erstellen / Registrieren eines Benutzerkontos\\
+\name{LF40} Benachrichtigung an Kunden, falls Eingaben beim Anmelden / Registrieren ungültig\\
+\name{LF41} Benachrichtigung an Kunden nach erfolgreicher Bestellung\\
+\name{LF50} Übermittlung der Bestellung und Kontaktdaten des Bestellers an die Pizzeria
+\subsection*{4 wichtigste zu speichernde Daten}
+\name{LD10} Relevante Kundendaten sind zu speichern (Name, Adresse, Email, Telefonnummer,...)\\
+\name{LD20} Die bestellbaren Pizzen sollen gespeichert werden\\
+\name{LD30} Die erfolgten Bestellungen sind zu speichern\\
+\subsection*{5 Leistungsanforderungen}
+ \name{LL10} Es soll eine für eine Pizzeria übliche Anzahl an Kunden verwaltet werden\\
+ \name{LL20} Die Software soll auf Benutzereingaben in unter 0,5 Sekunden reagieren\\
+ \name{LL30} Die Übertragung der Bestellung an die Pizzeria soll in unter 10 Sekunden zuverlässig abgeschlossen sein
+\subsection*{6 Qualitätsanforderungen}
+\begin{tabular}{|c|c|}
+\hline 
+Merkmal & gewünschte Qualität \\ 
+\hline 
+Funktionalität & normal \\ 
+Zuverlässigkeit & gut \\ 
+Benutzbarkeit & sehr gut \\ 
+Effizienz & normal \\ 
+Änderbarkeit & normal \\ 
+Portierbarkeit & gut \\ 
+\hline 
+\end{tabular}
+\subsection*{7 Ergänzungen}
+-
+\subsection*{8 Glossar}
+-
+
+\section*{Aufgabe 10)}
+\subsection*{a)}
+context Vorfuehrung\\ \indent
+\quad inv:\\ \indent
+\qquad self.start <= self.ende\\ \indent
+\qquad self.grundpreis > 0\\ \indent
+\qquad self.name !=  \enquote{ }
+
+\subsection*{b)}
+context Bestellung \\ \indent
+\quad inv: \\ \indent
+\qquad Bestellung.allInstances -> select(best | best.vorfuehrung == self.vorfuehrung)\\ \indent \qquad -> forAll(best | best.reservierteSitze -> intersection(self.reservierteSitze) -> size == 0)
+\newpage
+\subsection*{c)}
+context Bestellung::cancel()\\ \indent
+\quad pre:\\ \indent
+\qquad self.Zeitpunkt < vorfuehrung.start\\ \indent
+\quad post: \\ \indent
+\qquad not \quad Bestellung.allInstances -> exists(best | (best.nummer == self.nummer) and (best.vorfuerhung == self.vorfuehrung))
+
+\subsection*{d)}
+context Bestellung\\ \indent
+\quad inv: \\ \indent
+\qquad  (self.vorfuehrung.saal.nummer == 42) implies (self.vorfuehrung.ende < 11.11.2020)
+\end{document}
