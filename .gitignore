@@ -9,3 +9,7 @@
 *.classpath
 **/.project
 **/.settings/*
+
+#Dia Hilfsdateien
+**/.metadata/*
+*.dia~
