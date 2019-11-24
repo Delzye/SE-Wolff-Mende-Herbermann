@@ -1,0 +1,88 @@
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}
+\usepackage{float}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 3 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+\section*{Aufgabe 8}
+\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Aufgabe08.jpeg}
+\section*{Aufgabe 9}
+\section*{Lastenheft: Pizza-Bestellsystem der Pizzaria Vesuv}
+\section{Zielbestimmung}
+Die zu entwickelnde Software soll die Bestellung von Pizzen, sowie die Anmeldung und/oder Registrierung von Kunden ermöglichen.
+\section{Produkteinsatz}
+Das Produkt dient der Annahme von Pizza-Bestellungen. Zielgruppe des Produkts sind die Kunden der Pizzeria Vesuv.
+\section{Produktübersicht}
+Umweltdiagramm
+\begin{figure*}[htp]
+	\centering
+\includegraphics[keepaspectratio]{Umweltdiagramm.jpeg}
+\caption {Umwelt des Produkts Pizza-Bestellsystem}
+\end{figure*}
+\section{Produktfunktionen}
+\begin{enumerate}[/LF10/]
+	\item Geschäftsprozess: Bestellung\\
+	Akteur: Kunde\\
+	Beschreibung: Ein Kunde wählt die für ihn relevanten Pizzen aus einer Liste, indem er ihre Anzahl angibt. Eine Anmeldung ist erforderlich.
+	\item Geschäftsprozess: Anmeldung\\
+	Akteur: Kunde\\
+	Beschreibung: Ein Kunde meldet sich mit E-Mail und Passwort an. Bei falschen Eingaben gibt es eine Benachrichtigung.
+	\item Geschäftsprozess: Registrierung\\
+	Akteur: Kunde\\
+	Beschreibung: Ein Kunde hinterlegt Name, Adresse, Telefonnummer, E-Mail-Adresse und ein Passwort. Bei falschen Eingaben gibt es eine Benachrichtigung.
+\end{enumerate}
+\section{Produktdaten}
+\begin{enumerate}[/LD10/]
+	\item Daten der bestellbaren Pizzen
+	\item Bestellungsdaten
+	\item Kundendaten
+\end{enumerate}
+\section{Produktdaten}
+\begin{enumerate}[/LL10/]
+	\item Alle Reaktionszeiten auf Benutzereingaben müssen unter 0.5  Sekunden liegen.
+	\item Die Übertragung der Bestellung an die Pizzeria soll in unter 10 Sekunden zuverlässig abgeschlossen sein
+\end{enumerate}
+\section{Qualitätsanforderungen}
+\begin{tabular}{l|cccc}
+	Produktqualität&sehr gut&gut&normal&nicht relevant\\\hline
+	Funktionalität&&&\texttimes&\\
+	Zuverlässigkeit&&\texttimes&&\\
+	Benutzbarkeit&\texttimes&&&\\
+	Effizienz&&&&\texttimes\\
+	Änderbarkeit&&&\texttimes&\\
+	Übertragbarkeit&&&&\texttimes
+\end{tabular}
+\section{Ergänzungen}
+keine
+\section*{Glossar}
+-
+\section*{Aufgabe 10}
+\begin{enumerate} [a)]
+	\item \begin{enumerate} [1.]
+		\item context Vorfuehrung \\
+		inv: start <= end
+		\item context Vorfuehrung\\
+		inv: grundpreis > 0.0
+		\item context Vorfuehrung \\
+		inv: name <> “”
+	\end{enumerate}
+\item \phantom{a}\\
+\begin{tabular}{ll}
+	context Vorfuehrung&\\
+	inv: Bestellung.allInstances ->&\\
+	&select(b|b.vorfuehrung = self) ->\\
+	&forAll(b1,b2 | b1<> b2 implies b1.reservierteSitze -> excludesAll(b2.reservierteSitze))\\
+\end{tabular}
+\item context Bestellung:: cancel()\\
+pre: Zeitpunkt < vorfuehrung.start
+\item context Vorfuehrung \\
+inv: saal.nummer = 42 implies ende < 11.11.2020
+\end{enumerate}
+\end{document}
