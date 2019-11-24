@@ -19,7 +19,11 @@ Die zu entwickelnde Software soll die Bestellung von Pizzen, sowie die Anmeldung
 Das Produkt dient der Annahme von Pizza-Bestellungen. Zielgruppe des Produkts sind die Kunden der Pizzeria Vesuv.
 \section{Produktübersicht}
 Umweltdiagramm
-Abb. 1: Umwelt des Produkts Pizza-Bestellsystem.
+\begin{figure*}[htp]
+	\centering
+\includegraphics[keepaspectratio]{Umweltdiagramm.jpeg}
+\caption {Umwelt des Produkts Pizza-Bestellsystem}
+\end{figure*}
 \section{Produktfunktionen}
 \begin{enumerate}[/LF10/]
 	\item Geschäftsprozess: Bestellung\\
@@ -59,18 +63,18 @@ keine
 \begin{enumerate} [a)]
 	\item \begin{enumerate} [1.]
 		\item context Vorfuehrung \\
-		inv: start.Date <= end.Date
+		inv: start <= end
 		\item context Vorfuehrung\\
 		inv: grundpreis > 0.0
 		\item context Vorfuehrung \\
 		inv: name <> “”
 	\end{enumerate}
 \item \phantom{a}\\
-\begin{tabular}{cl}
+\begin{tabular}{ll}
 	context Vorfuehrung&\\
-	inv: Bestellung.allInstances->&\\
-	&select(b|b.Vorfuehrung.start = Vorfuehrung.start)->\\
-	&forAll(b1,b2 | b1<> b2 implies b1.reservierteSitze → excludesAll(b2.reservierteSitze))\\
+	inv: Bestellung.allInstances ->&\\
+	&select(b|b.Vorfuehrung = Vorfuehrung) ->\\
+	&forAll(b1,b2 | b1<> b2 implies b1.reservierteSitze -> excludesAll(b2.reservierteSitze))\\
 \end{tabular}
 \item context Bestellung:: cancel()\\
 pre: Zeitpunkt < Vorfuehrung.start
