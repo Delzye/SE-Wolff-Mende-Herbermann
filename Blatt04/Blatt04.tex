@@ -54,9 +54,7 @@ edge [pre, bend left=10] (bp1);
 edge [pre] (b4);
 \node [place] (bp5) [left of=b4,label=above: Kunde] {}
 edge [post] (b4);
-\node [transition] (b5) [above left of= bp5,label=left: geht unzufrieden] {}
-edge [pre] (bp5);
-\node [transition] (b6) [below left  of=bp5,label=left: Kommt] {}
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
  edge [post] (bp5);
 
 \node [place] (pp0) [below right of=p1, node distance=3cm,label=right: \text{k=4, belegte Pizzen}] {}
@@ -76,14 +74,12 @@ edge [post, bend left=15] (bp1) ;
 edge [pre] node{4} (p3);
 \node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
 edge [pre](pp2)
-edge [pre,bend left=5] (bp1)
-edge [post, bend left=15] (bp1);
+edge [pre,bend left=5] (bp1);
 \node [place] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
 edge [pre] (p4);
 \node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
 edge [pre] (pp3)
-edge [pre, bend right=20] (bp1)
-edge [post, bend left =23] (bp1);
+edge [post] (bp1);
 
 \node [place] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
 edge [pre] (p5);
@@ -96,7 +92,7 @@ edge [pre] (bp2);
 edge [pre] (b2);
 \node [place] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
 edge [pre] node{8} (b2);
-\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht glücklich] {}
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
 edge [pre] (bp4);
 
 \node [place,tokens=1] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
