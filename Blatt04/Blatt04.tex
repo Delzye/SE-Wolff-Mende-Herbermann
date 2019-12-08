@@ -105,10 +105,41 @@ edge [post] (pp4);
 edge [post] (pp5);
 \end{tikzpicture}
 \section*{Aufgabe 14}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+semithick]
+\node  [initial,state] (11000) {(1,1,0,0,0)};
+\node[state]  (10110) [below of=11000] {(1,0,1,1,0)};
+\node [state] (01110) [left of=10110]{(0,1,1,1,0)};
+\node [state] (00011) [left of=01110]{(0,0,0,1,1)};
+\node [state] (01010) [left of=00011] {(0,1,0,1,0)};
+\node [state] (10100) [below of=10110] {(1,0,1,0,0)};
+\node [state] (01100) [below of=10100] {(0,1,1,0,0)};
+\node [state] (00001) [below of=01100] {(0,0,0,0,1)};
+\node [state] (01000)[below of=00001]  {(0,1,0,0,0)};
+\node [state] (00110)[below of=01000]  {(0,0,1,1,0)};
+\node [state] (00100)[below of=00110]  {(0,0,1,0,0)};
+
+\path(11000) edge node{$t_1$} (10110)
+(10110) edge node{$t_0$} (01110)
+			 edge node{$t_3$} (10100)
+(01110) edge node{$t_2$} (00011)
+			 edge node{$t_3$} (01100)
+(00011) edge node{$t_3$} (00001)
+			edge node{$t_0$} (01010)
+(01010) edge node{$t_3$} (01000)
+(10100) edge node{$t_0$} (01100)
+(01100) edge node{$t_2$} (00001)
+(00001) edge node{$t_4$} (01000)
+(01000) edge node{$t_1$} (00110)
+(00110) edge node{$t_3$} (00100);
+
+\end{tikzpicture}
+\end{document}
+
 Das B/E-Netz ist deadlockfrei, aber nicht lebendig, da für eine vom Anfangszustand aus erreichbare Markierung (z.B. (0,0,1,0,1)) keine Markierung erreichbar ist, bei der $t_0$ aktiviert wird ($\rightarrow t_0$ ist nicht lebendig).\\
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
 semithick]
- \node[initial,state] (A)                    {(1,1,0,0,0)};
+\node[initial,state] (A)                    {(1,1,0,0,0)};
 \node[state]         (B) [below of=A] {(1,0,0,0,1)};
 \node[state]         (D) [right of=A] {(1,0,1,1,0)};
 \node[state]         (C) [above of=D] {(1,0,1,0,0)};
@@ -124,26 +155,25 @@ semithick]
 \draw (B) .. controls  (1,-10) and (13.5,-1) .. node {$t_0$}(H);
 \draw (C) .. controls (-3.5,3) and (-3.5,-2).. node [swap]{$t_0$} (B);
 \path	(A) edge		[bend left]		node {$t_2$}	(B)
-			 	edge				node {$t_1$}	(D)
-			(B)	edge[bend left]	node {$t_4$}	(A)
-			(C) edge node {$t_0$} (F) 
-			(D) edge node {$t_3$} (C)
-			 edge [bend left]node {$t_2$} (L)
-			 edge node {$t_0$} (E)
-			 (E) edge node {$t_3$} (F)
-			  edge[bend right] node {$t_2$} (K)
-			   edge node {$t_2$} (I)
-			  (F) edge [bend left] node {$t_2$} (G)
-			  edge node {$t_2$} (H)
-			  (G) edge [bend left] node {$t_4$} (F)
-			  (H)  edge [bend right] node {$t_2$} (K)
-			  (I) edge [bend right =75]node {$t_2$} (H)
-			  (K) edge [bend right] node {$t_3$} (H)
-			   edge [bend right] node {$t_4$} (E)
-			   (L) edge node [swap]{$t_0$} (I) 
-			   edge node {$t_3$} (B) 
-			   edge [bend right] node {$t_4$} (M)
-			   (M) edge [bend right]node {$t_2$} (L) 
-			   edge node [swap] {$t_3$} (A);
+edge				node {$t_1$}	(D)
+(B)	edge[bend left]	node {$t_4$}	(A)
+(C) edge node {$t_0$} (F) 
+(D) edge node {$t_3$} (C)
+edge [bend left]node {$t_2$} (L)
+edge node {$t_0$} (E)
+(E) edge node {$t_3$} (F)
+edge[bend right] node {$t_2$} (K)
+edge node {$t_2$} (I)
+(F) edge [bend left] node {$t_2$} (G)
+edge node {$t_2$} (H)
+(G) edge [bend left] node {$t_4$} (F)
+(H)  edge [bend right] node {$t_2$} (K)
+(I) edge [bend right =75]node {$t_2$} (H)
+(K) edge [bend right] node {$t_3$} (H)
+edge [bend right] node {$t_4$} (E)
+(L) edge node [swap]{$t_0$} (I) 
+edge node {$t_3$} (B) 
+edge [bend right] node {$t_4$} (M)
+(M) edge [bend right]node {$t_2$} (L) 
+edge node [swap] {$t_3$} (A);
 \end{tikzpicture}
-\end{document}
