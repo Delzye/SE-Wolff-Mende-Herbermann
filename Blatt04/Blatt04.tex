@@ -23,7 +23,7 @@
 \newpage 
 \section*{Aufgabe 13}
 \subsection*{13a)}
-Alle nicht explizit benannten Stellen und Kantenkapazitäten sind =1. Die Anfangsbelegung ist hier bereits dargestellt.
+Alle nicht explizit benannten Stellen und Kantenkapazitäten sind =1.\\
 \begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
 \tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
 
@@ -46,7 +46,7 @@ edge[post, bend left] (p1);
 
 \node [transition]  (b1) [left of=pp,label=above: betritt] {}
 edge [post] node{2}(pp);
-\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+\node [place] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
 edge [post]node{2} (b1)
 edge[pre, bend left=70] (p1);
 \node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
