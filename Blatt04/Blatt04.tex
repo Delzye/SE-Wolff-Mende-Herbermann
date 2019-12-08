@@ -1,0 +1,1261 @@
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}
+\usepackage{float}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 4 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+\section*{Aufgabe 12}
+\begin{enumerate} [/LF10/)]
+	\item Als Vorsitzender möchte ich mir übergebene oder geschickte schriftliche Beitrittserklärungen bearbeiten können, um Mitglieder in den Verein einzutragen
+	\item  Als Vorsitzender möchte ich mir übergebene oder geschickte schriftliche Austrittserklärungen bearbeiten können, um Mitglieder aus dem Verein auszutragen
+	\item Als Kassierer möchte ich einen Betrag von einem Konto auf ein anderes buchen können
+	\item Als Kassierer möchte ich eine Liste allen Mitglieder mit negativen Kontoständen ausgeben lassen können
+	\item Als Kassierer möchte ich einem Mitglied mehrere Beitragssätze zuordnen können
+	\item Als Kassierer möchte ich einsehen können, seit wann einem Mitglied ein bestimmter Beitragssatz zugeordnet wurde
+\end{enumerate}
+\newpage 
+\section*{Aufgabe 13}
+\subsection*{13a)}
+Alle nicht explizit benannten Stellen und Kantenkapazitäten sind =1.\\
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=0] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture} \newpage 
+\subsection*{13b)}
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=0] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=0] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=1] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=2] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=0] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=1] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=1] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=1] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=2] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=0] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=1] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=1] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=1] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=1] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=1] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=1] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=1] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=1] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=1] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=1] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=1] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=1] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=1] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=0] (bp3) [below right of=bp4,label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=0] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=1] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=8, minimum size =10mm] (bp3) [below of=b2, node distance =2.5cm, label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[node distance=1.5cm,>=stealth',bend angle=45,auto]
+\tikzstyle{place}=[circle, draw=black!85, minimum size =6mm]
+
+\node [transition] (t1) [label=above:Lager 1]{} ;
+\node [transition] (t2) [below of=t1,label=above:Lager 2]{} ;
+\node [transition] (t3) [below of=t2, label=above:Lager 3] {};
+\node [place,tokens=0] (i1) [left of=t1,label=above: Tomatensoße, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t1);
+\node [place,tokens=0] (i2) [left of=t2,label=above: Mozarella, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t2);
+\node [place,tokens=0] (i3) [left of=t3,label=above: Rohling, label=below:\text{k=100}, node distance =1.7cm] {}
+edge [pre] (t3);
+
+\node [transition] (p1) [below left of=i3, label=below:belegt]{}
+edge [pre,bend left] (i1) 
+edge [pre,bend left] (i2)
+edge [pre,bend left] (i3);
+\node [place,tokens=0] (pp) [below left of=p1, node distance=3cm,label=right: \text{k=2, Backprozess}] {}
+edge[post, bend left] (p1);
+
+\node [transition]  (b1) [left of=pp,label=above: betritt] {}
+edge [post] node{2}(pp);
+\node [place, tokens=2] (bp1) [below left of=pp,node distance=4cm, label=right: \text{k=2, Mitarbeiter}] {}
+edge [post]node{2} (b1)
+edge[pre, bend left=70] (p1);
+\node [transition] (b4) [left of=b1, node distance=4cm, label=above: Bestellen] {}
+edge [post, bend right =10] (bp1)
+edge [pre, bend left=10] (bp1);
+\node [place,tokens=0] (bp6) [below of=b4,label=left:bestellt] {}
+edge [pre] (b4);
+\node [place,tokens=0] (bp5) [left of=b4,label=above: Kunde] {}
+edge [post] (b4);
+\node [transition] (b6) [left  of=bp5,label=left: Kommt] {}
+edge [post] (bp5);
+
+\node [place,tokens=0] (pp0) [below right of=p1, node distance=3cm,label=right: \text{belegte Pizza}] {}
+edge [pre, bend right] (p1);
+\node [transition] (p2) [below right of=pp, node distance=3cm, label=above:legt in Ofen]{}
+edge [pre, bend right] (pp0)
+edge[pre, bend left=27] node[swap]{}(pp)
+edge [post, bend right=5] (bp1);
+\node [place,tokens=0] (pp1) [below of=p2,label=right:\text{k=4, Ofen}] {}
+edge [pre] node{} (p2);
+\node [transition] (p3) [below of=pp1, label=right: nimmt aus Ofen]{}
+edge [pre] node{}(pp1)
+edge [pre, bend right=2](bp1) 
+edge [post, bend left=15] (bp1) ;
+\node [place,tokens=0] (pp2) [below of=p3,label=right: \text{k=8, Beheizte Ablage}] {}
+edge [pre] node{} (p3);
+\node [transition] (p4) [left of=pp2,label=below: legt auf Arbeitsfläche]{}
+edge [pre](pp2)
+edge [pre,bend left=5] (bp1);
+\node [place,tokens=0] (pp3) [left of=p4,node distance =3cm, label=below:\text{Arbeitsfläche}] {}
+edge [pre] (p4);
+\node [transition] (p5) [above left of=pp3,node distance=2cm, label=left: belegt]{}
+edge [pre] (pp3)
+edge [post] (bp1);
+
+\node [place,tokens=0] (bp2) [above left of=p5,label=above right:\text{Theke}] {}
+edge [pre] (p5);
+\node [transition] (b2) [above left of=bp2, label=left: bezahlt] {}
+edge [pre, bend left =10] (bp1)
+edge [post, bend right =10] (bp1)
+edge [pre] (bp6)
+edge [pre] (bp2);
+\node [place,tokens=0] (bp4) [below left of=b2,node distance =1.7cm,label=below: Kunde fertig] {}
+edge [pre] (b2);
+\node [place,tokens=8, minimum size =10mm] (bp3) [below of=b2, node distance =2.5cm, label=below:\text{k=2000, Kasse}] {}
+edge [pre] node{8} (b2);
+\node [transition] (b3) [left of=bp4, node distance=2cm, label=below: geht] {}
+edge [pre] (bp4);
+
+\node [place,tokens=0] (pp4) [below left of=p5, node distance=3cm,label=above: Schinken,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [place,tokens=0] (pp5) [below of=pp4, label=above: Rucola,label=below:\text{k=100}] {}
+edge [post, bend right] (p5);
+\node [transition] (p6) [left of=pp4,label=above: Lager 4] {}
+edge [post] (pp4);
+\node [transition] (p7) [left of=pp5,label=above: Lager 5] {}
+edge [post] (pp5);
+\end{tikzpicture}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Aufgabe 14}
+Das Netz ist weder lebendig noch deadlockfrei, in (0,0,1,0,0) kann man nicht mehr schalten.\\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+semithick]
+\node  [initial,state] (11000) {(1,1,0,0,0)};
+\node[state]  (10110) [below of=11000] {(1,0,1,1,0)};
+\node [state] (01110) [left of=10110]{(0,1,1,1,0)};
+\node [state] (00011) [left of=01110]{(0,0,0,1,1)};
+\node [state] (01010) [left of=00011] {(0,1,0,1,0)};
+\node [state] (10100) [below of=10110] {(1,0,1,0,0)};
+\node [state] (01100) [below of=10100] {(0,1,1,0,0)};
+\node [state] (00001) [below of=01100] {(0,0,0,0,1)};
+\node [state] (01000)[below of=00001]  {(0,1,0,0,0)};
+\node [state] (00110)[below of=01000]  {(0,0,1,1,0)};
+\node [state] (00100)[below of=00110]  {(0,0,1,0,0)};
+
+\path(11000) edge node{$t_1$} (10110)
+(10110) edge node{$t_0$} (01110)
+			 edge node{$t_3$} (10100)
+(01110) edge node{$t_2$} (00011)
+			 edge node{$t_3$} (01100)
+(00011) edge node{$t_3$} (00001)
+			edge node{$t_4$} (01010)
+(01010) edge node{$t_3$} (01000)
+(10100) edge node{$t_0$} (01100)
+(01100) edge node{$t_2$} (00001)
+(00001) edge node{$t_4$} (01000)
+(01000) edge node{$t_1$} (00110)
+(00110) edge node{$t_3$} (00100);
+
+\end{tikzpicture}
+\end{document}
+
+Das B/E-Netz ist deadlockfrei, aber nicht lebendig, da für eine vom Anfangszustand aus erreichbare Markierung (z.B. (0,0,1,0,1)) keine Markierung erreichbar ist, bei der $t_0$ aktiviert wird ($\rightarrow t_0$ ist nicht lebendig).\\
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+semithick]
+\node[initial,state] (A)                    {(1,1,0,0,0)};
+\node[state]         (B) [below of=A] {(1,0,0,0,1)};
+\node[state]         (D) [right of=A] {(1,0,1,1,0)};
+\node[state]         (C) [above of=D] {(1,0,1,0,0)};
+\node[state]         (E) [right of=D]       {(0,1,1,1,0)};
+\node[state]         (F) [above of=E]       {(0,1,1,0,0)};
+\node[state]         (G) [above of=F]       {(0,0,1,0,1)};
+\node[state]         (K) [right of=E]       {(0,0,1,1,1)};
+\node[state]         (H) [above of=K]       {(0,1,0,0,1)};
+\node[state]         (I) [below of=E]       {(0,1,0,1,1)};
+\node[state]         (M) [below right of=A]       {(1,1,0,1,0)};
+\node[state]         (L) [below of=M]       {(1,0,0,1,1)};
+
+\draw (B) .. controls  (1,-10) and (13.5,-1) .. node {$t_0$}(H);
+\draw (C) .. controls (-3.5,3) and (-3.5,-2).. node [swap]{$t_0$} (B);
+\path	(A) edge		[bend left]		node {$t_2$}	(B)
+edge				node {$t_1$}	(D)
+(B)	edge[bend left]	node {$t_4$}	(A)
+(C) edge node {$t_0$} (F) 
+(D) edge node {$t_3$} (C)
+edge [bend left]node {$t_2$} (L)
+edge node {$t_0$} (E)
+(E) edge node {$t_3$} (F)
+edge[bend right] node {$t_2$} (K)
+edge node {$t_2$} (I)
+(F) edge [bend left] node {$t_2$} (G)
+edge node {$t_2$} (H)
+(G) edge [bend left] node {$t_4$} (F)
+(H)  edge [bend right] node {$t_2$} (K)
+(I) edge [bend right =75]node {$t_2$} (H)
+(K) edge [bend right] node {$t_3$} (H)
+edge [bend right] node {$t_4$} (E)
+(L) edge node [swap]{$t_0$} (I) 
+edge node {$t_3$} (B) 
+edge [bend right] node {$t_4$} (M)
+(M) edge [bend right]node {$t_2$} (L) 
+edge node [swap] {$t_3$} (A);
+\end{tikzpicture}
