@@ -1,7 +1,6 @@
-5 Sätze = 5 Punkte?
-
 Als Vorsitzender möchte ich neue Mitglieder in den Verein eintragen
 Als Vorsitzender möchte ich bestehende Mitglieder aus dem Verein austragen
+Als Kassierer möchte ich Beträge auf Konten buchen
 Als Kassierer möchte ich alle Mitglieder mit negativem Kontostand einsehen können
 Als Kassierer möchte ich einem Mitglied mehrere Beitragssätze zuordnen
 Als Kassierer möchte ich einsehen, ab wann einem Mitglied ein bestimmter Beitragssatz zugeordnet wurde
