@@ -1,0 +1,55 @@
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}
+\usepackage{float}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 5 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+\section*{Aufgabe 15}
+\section*{Aufgabe 16}
+\begin{enumerate} [a)]
+	\item 
+	\begin{description}
+		\item[Verarbeitung:] Nebenläufig, wenn der Föhn Sensoren für Temperatur etc. hat und die Föhnzeit misst.
+		\item[Ein-/Mehrbenutzerfähigkeit:] Nur ein Benutzer, derjenige, der den Föhn nutzt, da das System des Föhns nur auf den Föhn selbst limitiert ist.
+		\item[Schichten:] Kein Server, das ist zwar ein innovativer Föhn, aber kein Smart-Home Gerät, kein WLAN und keine Synchronisation mit der Cloud.
+		\item[Plattformen:] Eine, die Hardware des Föhns.
+		\item[Bausteine:] 
+		\item[Hilfesystem:] Das System hat nichts zu erklären.
+		\item[DBMS:] Keine DB. Wenn man sich die Föhnzeit merken will, um dem Nutzer Statistiken wie den Durchschnitt zu geben, kann man eine Datei nutzen (da es eine sehr simple Struktur ist).
+		\item[Benutzerschnittstelle:] GUI, der Föhn nutzt einen Touchscreen
+		\item[Dienstleistungen:] Keine weiteren Dienstleistungen
+	\end{description}
+	\item 
+		\begin{description}
+		\item[Verarbeitung:] Sequenziell: Alle Aktivitäten, Zutatenwahl, Synchronisation erfolgen nacheinander.
+		\item[Ein-/Mehrbenutzerfähigkeit:] Die App hat immer nur einen Nutzer, nur der Server, der aber nicht Teil der App ist, muss mehrere Nutzer verarbeiten können.
+		\item[Schichten:]
+		\item[Plattformen:] iOS, Android. Also alle gängigen Smartphone-Betriebssysteme.
+		\item[Bausteine:]
+		\item[Hilfesystem:] Informationen zu Allergenen etc.
+		\item[DBMS:] Wir nutzen ein relationales DBMS, um die Pizza-Daten zu synchronisieren.
+		\item [Benutzerschnittstelle:] GUI der App.
+		\item[Dienstleistungen:] Maps, um Die Pizzeria zu finden.
+	\end{description}
+	\item 
+		\begin{description}
+		\item[Verarbeitung:] Sequenziell, alle Bestandteile des Registrierens und Bestellens der Karte erfolgen nacheinander.
+		\item[Ein-/Mehrbenutzerfähigkeit:] Mehrere Benutzer sollen sich gleichzeitig registrieren können und auch gleichzeitig Karten anfordern können.
+		\item[Schichten:]
+		\item[Plattformen:] Das System läuft auf einem Server, es muss also nur das Server-OS unterstützt werden.
+		\item[Bausteine:]
+		\item[Hilfesystem:] Informationen zur Verarbeitung der persönlichen Daten, Erklärung der Kartenfunktionen
+		\item[DBMS:] Eine relationale Datenbank wird zum Speichern der Nutzerdaten genutzt.
+		\item[Benutzerschnittstelle:] Website via HTML.
+		\item[Dienstleistungen:] PayPal/Banksysteme zum Bezahlen, Verschlüsselung zum Transport der Kundendaten.
+	\end{description}
+	
+\end{enumerate}
+\end{document}
