@@ -23,7 +23,7 @@ public class Kunde implements java.io.Serializable{
     //Primaerschluessel
     protected String kundenId;
     protected String name;
-    protected Collection<Bestellung> bestellungen = new ArrayList<Bestellung>();
+    protected Collection<Bestellung> buchung = new ArrayList<Bestellung>();
     
     public Kunde(String name){
         this.name = name;
@@ -39,10 +39,10 @@ public class Kunde implements java.io.Serializable{
     
     //Ein Kunde ist mit mehreren Bestellungen verbunden
     @OneToMany
-    public Collection<Bestellung> getBestellungen(){return this.bestellungen;}
-    public void setBestellungen(Collection<Bestellung> bestellungen){this.bestellungen = bestellungen}
-    public void addBuchung(Bestellung buchung){this.bestellungen.add(buchung);}
-    public void removeBuchung(Bestellung buchung){this.bestellungen.remove(buchung);}
+    public Collection<Bestellung> getBuchung(){return this.buchung;}
+    public void setBuchung(Collection<Bestellung> b){this.buchung = b;}
+    public void addBuchung(Bestellung b){this.buchung.add(b);}
+    public void removeBuchung(Bestellung b){this.buchung.remove(b);}
         
 }
 /**
@@ -91,7 +91,7 @@ public class Pizza implements java.io.Serializable{
     protected int pizzaId;
     protected double preis;
     protected String name;
-    protected Collection<Bestellung> bestellungen = new ArrayList<Bestellung>();
+    protected Collection<Bestellung> buchung = new ArrayList<Bestellung>();
     
     public Pizza(String name, double preis){
         this.name = name;
@@ -106,11 +106,14 @@ public class Pizza implements java.io.Serializable{
     public String getName(){return this.name;}
     public void setName(String name){this.name=name;}
     
+    public double getPreis(){return this.preis;}
+    public void setPreis(double preis){this.preis = preis;}
+    
     //Eine Pizza ist mit mehreren Bestellungen verbunden
     @OneToMany
-    public Collection<Bestellung> getBestellungen(){return this.bestellungen;}
-    public void setBestellungen(Collection<Bestellung> bestellungen){this.bestellungen = bestellungen}
-    public void addBestellung(bestellung){this.bestellungen.add(bestellung);}
-    public void removeBestellung(bestellung){this.bestellungen.remove(bestellung);}
+    public Collection<Bestellung> getBuchung(){return this.buchung;}
+    public void setBuchung(Collection<Bestellung> b){this.buchung = b;}
+    public void addBuchung(Bestellung b){this.buchung.add(b);}
+    public void removeBuchung(Bestellung b){this.buchung.remove(b);}
         
 }
