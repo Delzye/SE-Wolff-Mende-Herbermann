@@ -1,0 +1,64 @@
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}
+\usepackage{listings}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 5 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+\section*{Aufgabe 15}	
+\includegraphics[scale=0.7]{Aufgabe_15.jpeg}
+\newpage
+\section*{Aufgabe 16}
+\subsection*{a)}
+\begin{itemize}
+\item[-] \textbf{parallele Verarbeitung}: Die Fön-Software muss sowohl Lüfterdrehzahl als auch Heizelementtemperatur gleichzeitig steuern\\
+\item[-] \textbf{Einbenutzerfähigkeit}: Ein Fön wird immer nur von einer einzigen Person gleichzeitig benutzt\\
+\item[-] \textbf{Schichten}: Der Fön muss sich nicht zu einem Server verbinden. Somit muss nur die Client-Schicht entwickelt werden, die die komplette Steuerung des Föns übernimmt\\
+\item[-] \textbf{Notwendigkeit verschiedener Plattformen}: Das System soll nur als Embedded-System fest im Fön verbaut laufen. Somit muss nur für diese eine Plattform entwickelt werden
+\item[-] \textbf{Wiederverwendung vorhandener Bausteine}: Die Fön-Software benötigt keine Wiederverwendung vorhandener Bausteine, da lediglich Temperatur und Lüfterdrehzahl geregelt werden müssen. Dafür kann man keine Bausteine wiederverwenden.\\
+\item[-] \textbf{Hilfesystem}: Die Fön-Bedienung ist intuitiv genug, sodass kein Hilfesystem benötigt wird.
+\item[-] \textbf{DBMS}: Der Fön muss keine Daten persistent speichern. Somit entfällt die Benutzung eines DBMS\\
+\item[-] \textbf{Benutzerschnittstelle}: Die Benutzerschnittstelle wird durch Hardware-Schalter realisiert, durch die der Benutzer Eingaben zur gewünschten Lufttemperatur und Lüfterdrehzahl tätigen kann.\\
+\item[-] \textbf{Rückgriffe auf sonstige Dienstleistungen}: entfallen, da die Fön-Software nicht sehr komplex ist, sodass Rückgriffe auf sonstige Dienstleistungen nicht nötig sind.\\
+\end{itemize}
+\newpage
+\subsection*{b)}
+\begin{itemize}
+\item[-] \textbf{sequentielle Verarbeitung}: Der Kunde soll seine Pizza Schritt für Schritt nacheinander konfigurieren und die Konfiguration soll danach an den Unternehmens-Server geschickt werden. Es läuft alles einzeln nacheinander ab, somit wird keine Parallelität / Nebenläufigkeit benötigt.\\
+\item[-] \textbf{Einbenutzerfähigkeit}: Die Software auf dem Smartphone wird jeweils nur von einem einzigen Kunden benutzt. Das Softwaresystem auf dem Unternehmens-Server muss mehrbenutzerfähig sein, die Handy-App jedoch nicht.\\
+\item[-] \textbf{Schichten}: Die Software läuft lokal auf einem Smartphone als Client. Erst beim Abschluss der Konfiguration sendet der Client die fertig konfigurierte Pizza an einen Unternehmens-Server. Die zu entwickelnde Software ist also Client-Software.
+\item[-] \textbf{Notwendigkeit verschiedener Plattformen}: Die Software muss auf allen gängigen Smartphones laufen (Android, Apple, WindowsPhone,...)
+\item[-] \textbf{Wiederverwendung vorhandener Bausteine}:   Die Auswahl-Menüs für Zutaten, Pizzaboden, Pizzasoße, etc. können mit anderen Werten wiederverwendet werden, da der strukturelle Aufbau der graphischen Auswahl-Menüs jeweils gleich ist.
+\item[-] \textbf{Hilfesystem}: Ein Hilfesystem ist nicht zwingend erforderlich, da die App den Kunden intuitiv durch die Konfiguration seiner Pizza führt und Schritt für Schritt nach Angaben fragt.\\
+\item[-] \textbf{DBMS}: Die Software, die auf dem Smartphone läuft sollte zur besseren Bedienbarkeit die persönlichen Daten des Kunden wie Name, Adresse, Telefonnummer, etc. lokal speichern, sodass der Kunde diese nicht jedes Mal von Hand eingeben muss. Da dies nur ein einziger Eintrag ist, ist hierfür ein DBMS nicht nötig. Zusätzlich müssen die möglichen Wahloptionen für Zutaten, Pizzaböden und Soßen in einer relationalen Datenbank gespeichert werden.\\
+\item[-] \textbf{Benutzerschnittstelle}: Die Benutzerschnittstelle soll in Form einer GUI realisiert werden
+\item[-] \textbf{Rückgriff auf sonstige Dienstleistungen}: GUI-Framework zur Erstellung der Benutzerschnittstelle, Netzwerk-Bibliothek zum Senden der Pizza-Konfiguration über 5G an den Unternehmens-Server. Für das Hilfesystem könnte ebenfalls ein Halbfabrikat verwendet werden.
+\end{itemize}
+\newpage
+\subsection*{c)}
+\begin{itemize}
+\item[-] \textbf{sequentielle Verarbeitung}: Jeder Registrierungs bzw. Bezahlvorgang wird nacheinander abgearbeitet.
+\item[-] \textbf{Mehrbenutzerfähigkeit}: Mehrere Kunden werden das System gleichzeitig nutzen
+\item[-] \textbf{Schichten}: Die Registrierung erfolgt in einer Web-Applikation. Als Client dient hierbei ein Smartphone bzw. Rechner des jeweiligen Kunden, der sich registrieren möchte. Die Bezahlung erfolgt am Automaten als Client, der den Bezahlvorgang mit dem Bezahlsystem als Server abwickelt.
+\item[-] \textbf{Notwendigkeit verschiedener Plattformen}: Die Software zur Registrierung läuft in einem Browser (PHP, HTML). Die Software zum Bezahlen läuft lokal auf dem Pizzaautomaten.
+\item[-] \textbf{Wiederverwendung vorhandener Bausteine}: entfällt, da keine Teile des Systems sich dafür ähnlich genug sind.
+\item[-] \textbf{Hilfesystem}: Ein Hilfesystem für den Kunden ist wünschenswert, um Fragen bei der Registrierung, beim Bezahlvorgang oder beim Verlust der Karte zu beantworten.\\
+\item[-] \textbf{DBMS}: Die personenbezogenen Daten sollen vertraulich in einem relationalen DBMS gespeichert werden. Zusätzlich sollten getätigte Bestellungen gespeichert werden. 
+\item[-] \textbf{Benutzerschnittstelle}: Die Benutzerschnittstelle wird als GUI realisiert, die den Kunden im Browser durch den Registrierungsvorgang leitet. Am Automaten wird auf dem vorhandenen Bildschirm der Status der kontaktlosen Bezahlung angezeigt.
+\item[-] \textbf{Rückgriff auf sonstige Dienstleistungen}: Es kann auf ein Halbfabrikat zur datenschutzkonformen Speicherung der personenbezogenen Daten zurückgegriffen werden, das die Daten (eventuell verschlüsselt) in einer Datenbank ablegt. Zusätzlich kann eine Bibliothek zum kontaktlosen Auslesen der Karten verwendet werden. Für das Hilfesystem kann ebenfalls ein Halbfabrikat verwendet werden.
+\end{itemize}
+\newpage
+\section*{Aufgabe 17}
+\lstset{basicstyle=\tiny ,language=Java}
+\subsection*{a)}
+\lstinputlisting{Aufgabe17a.java}
+\newpage
+\subsection*{b)}
+\lstinputlisting{Aufgabe17b.java}
+\end{document}
