@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=Kunde
+comment0.text=\r\n\ Beschreibe\ \ \ n\ Sie\ hier\ die\ Klasse\ Kunde.\r\n\ \r\n\ @author\ (Ihr\ Name)\ \r\n\ @version\ (eine\ Versionsnummer\ oder\ ein\ Datum)\r\n
+comment1.params=
+comment1.target=int\ getKundenid()
+comment2.params=id
+comment2.target=void\ setJundenid(int)
+comment3.params=
+comment3.target=java.lang.String\ getName()
+comment4.params=name
+comment4.target=void\ setName(java.lang.String)
+comment5.params=
+comment5.target=java.util.Collection\ getBestellung()
+comment6.params=coll
+comment6.target=void\ setBestellung(java.util.Collection)
+comment7.params=vorgang
+comment7.target=void\ addBestellung(Bestellung)
+comment8.params=vorgang
+comment8.target=void\ removeBestellung(Bestellung)
+numComments=9
