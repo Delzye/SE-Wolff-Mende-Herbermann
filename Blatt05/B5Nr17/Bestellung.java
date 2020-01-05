@@ -21,6 +21,12 @@ public class Bestellung implements java.io.Serializable
     public DateTime getZeitpunkt() {return zeitpunkt;}
     public void setZeitpunkt(DateTime zeitpunkt) {this.zeitpunkt = zeitpunkt;}
     
+    public int getKunde(){ return kunde;}
+    public void setKunde(int k){ kunde = k;}
+    
+    public int getPizza(){ return pizza;}
+    public void setPizza(int p){ pizza = p;}
+    
     
     public Bestellung(Kunde k, Pizza p)
     {

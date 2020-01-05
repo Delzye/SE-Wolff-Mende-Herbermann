@@ -29,10 +29,10 @@ public class Bestellservice
             q.setParameter("n",name);
             if (((Long) q.getSingleResult()).intValue() == 0)
             {
-                Kunde kunde = new Kunde();
-                kunde.setName(name);
-                kunde.setAdresse(adresse);
-                em.persist(kunde);
+                Bestellung bestellung = new Bestellung();
+                bestellung.setKunde(k);
+                bestellung.setPizza(p);
+                em.persist(bestellung);
             }
             else
             {
