@@ -40,9 +40,9 @@ public class Kunde implements java.io.Serializable{
     //Ein Kunde ist mit mehreren Bestellungen verbunden
     @OneToMany
     public Collection<Bestellung> getBestellungen(){return this.bestellungen;}
-    public void setBestellungen(bestellungen){this.bestellungen = bestellungen}
-    public void addBestellung(bestellung){this.bestellungen.add(bestellung);}
-    public void removeBestellung(bestellung){this.bestellungen.remove(bestellung);}
+    public void setBestellungen(Collection<Bestellung> bestellungen){this.bestellungen = bestellungen}
+    public void addBuchung(Bestellung buchung){this.bestellungen.add(buchung);}
+    public void removeBuchung(Bestellung buchung){this.bestellungen.remove(buchung);}
         
 }
 /**
@@ -109,7 +109,7 @@ public class Pizza implements java.io.Serializable{
     //Eine Pizza ist mit mehreren Bestellungen verbunden
     @OneToMany
     public Collection<Bestellung> getBestellungen(){return this.bestellungen;}
-    public void setBestellungen(bestellungen){this.bestellungen = bestellungen}
+    public void setBestellungen(Collection<Bestellung> bestellungen){this.bestellungen = bestellungen}
     public void addBestellung(bestellung){this.bestellungen.add(bestellung);}
     public void removeBestellung(bestellung){this.bestellungen.remove(bestellung);}
         
