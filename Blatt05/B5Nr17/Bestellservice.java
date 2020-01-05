@@ -3,8 +3,8 @@ import java.util.Collection;
 import javax.persistence.*;
 
 /** 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author Antonius Mende 461 328, Anika Herbermann 461 655, Matthias Wolff 458 766
+ * @version 5.1.20
  */
 public class Bestellservice
 {
@@ -36,7 +36,7 @@ public class Bestellservice
             }
             else
             {
-                throw new Exception("Name bereits verwendet");
+                throw new Exception("Bestellung existiert bereits");
             }
         }
     }

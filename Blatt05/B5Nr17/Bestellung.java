@@ -3,7 +3,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 /**
- * @author (Ihr Name) 
+ * @author Antonius Mende 461 328, Anika Herbermann 461 655, Matthias Wolff 458 766
  * @version 5.1.20
  */
 @Entity
