@@ -32,21 +32,17 @@ public class Bestellservice implements BestellFassade{
     public static void erstelleBestellung(Kunde k, Pizza p) throws Exception{
         //Erstelle jetzigen Zeitpunkt als Date
         Date zeitpunkt = new Date();
-        //Pruefe ob eine Bestellung von Kunde k fuer Pizza p mit jetzigem Zeitpunkt bereits existiert
-        Query q = em.createQuery("SELECT COUNT(*) FROM Bestellung b WHERE b.kunde.kundenId = :k AND b.pizza.pizzaId = :p AND b.zeitpunkt = :z");
-        q.setParameter("k",kunde.getKundenID());
-        q.setParameter("p",pizza.getPizzaId());
-        //Zeitpunkt muss auch geprueft werden, da ein Kunde mehrmals die gleiche Pizza bestellen kann, aber nicht zur gleichen Zeit
-        q.setParameter("z", zeitpunkt);
-        //Falls Bestellung noch nicht existiert
-        if((Long) q.getSingleResult()).intValue() == 0{
-            Bestellung bestellung = new Bestellung(k,p);
-            bestellung.setZeitpunkt(zeitpunkt);
-            em.persist(bestellung);
-        }
-        //Falls Bestellung bereits vorhanden
-        else{
-            throw new Exception("Bestellung existiert bereits!");
-        }            
+        /*
+        Es muss nicht geprueft werden, ob eine solche Bestellung schon existiert, da man mehrere Bestellungen für einen Kunden mit gleicher Pizza erlauben muss.
+        Der Zeitpunkt reicht nicht aus, um "doppelte" Bestellungen zu finden, da der zeitpunkt auf Millisekunden genau ist
+        und somit alleine durch kurze Laufzeiten des Programms nichtmehr übereinstimmt.
+        
+        Man koennte ein Feature einbauen, sodass ein Kunde innerhalb von X Sekunden nur einmal die gleiche Pizza bestellen kann,
+        um Eingabefehler durch den Kunden (z.B. doppeltes Klicken auf Bestellen) abzufangen
+        */
+        Bestellung bestellung = new Bestellung(k,p);
+        bestellung.setZeitpunkt(zeitpunkt);
+        em.persist(bestellung);
+         
     
 }
