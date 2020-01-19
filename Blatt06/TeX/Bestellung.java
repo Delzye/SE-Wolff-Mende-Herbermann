@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 class Bestellung{
     protected int buchungsId;
     protected LocalDateTime zeitpunkt;
@@ -12,7 +13,7 @@ class Bestellung{
     }
     
     public int getBuchungsId(){return buchungsId;}
-    public void setBuchungsId(int bId){buchungsid =bId;}
+    public void setBuchungsId(int bId){buchungsId =bId;}
 
     public LocalDateTime getZeitpunkt(){return zeitpunkt;}
     public void setZeitpunkt(LocalDateTime zp){zeitpunkt = zp;}

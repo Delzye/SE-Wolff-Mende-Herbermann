@@ -17,7 +17,7 @@ class Pizza {
     public void setPizzaId(int pId){pizzaId=pId;}
 
     public double getPreis(){return preis;}
-    public void setPreis(dpuble p) {preis=p;}
+    public void setPreis(double p) {preis=p;}
 
     public String getName(){return name;}
     public void setName(String n){name=n;}
