@@ -1,0 +1,102 @@
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}
+\usepackage{float}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 6 &   & \textbf{1. Abgabepartner:} & Matthias Wolff & (458 766)  \\
+		        & & & \textbf{2. Abgabepartner:} & Anton Mende & (461 328) \\
+		        & & & \textbf{3. Abgabepartner:} & Anika Herbermann & (461 655) \\ \hline
+		\end{tabular}
+	\end{center}
+\definecolor{Gray}{gray}{0.85}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+\lstset{language=Java,
+	frame =single,
+	basicstyle=\ttfamily,
+	commentstyle=\color{pgreen},
+	keywordstyle=\color{pblue},
+	stringstyle=\color{pred},
+	morecomment=[s][\color{javadocblue}]{/**}{*/},
+	numbers=left,
+	numberstyle=\tiny\color{black},
+	stepnumber=3,
+	numbersep=10pt,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false}
+
+
+\section*{Aufgabe 18}
+Relation "Kunde"\\
+\begin{tabular} {|c|c|}
+\rowcolor{Gray}\hline
+\underline{kundenId} \phantom{a}&name\\\hline
+1&Aaron Eckhart\\\hline
+2&Michael Caine\\\hline
+3&Maggie Gyllenhaal\\\hline
+\end{tabular}\\
+
+Relation "Pizza"\\
+\begin{tabular} {|c|c|c|}
+	\rowcolor{Gray}\hline
+	\underline{pizzaId}&name&preis\\\hline
+	1&Hollandaise&5,80\\\hline
+	2&Cipolla&5,80\\\hline
+	3&Tonno&6,80\\\hline
+	4&Zingara&6,80\\\hline
+	5&Gyros&6,80\\\hline
+	6&Toscana&7,50\\\hline
+\end{tabular}\\
+
+Relation "Bestellung"\\
+\begin{tabular} {|c|c|c|c|}
+	\rowcolor{Gray}\hline
+	\underline{buchungsId}&buchungsZeitpunkt \phantom{a}&pizzaId&kundenId\\\hline
+	1&17.06.2017 11:58:29&2&1\\\hline
+	2&17.06.2017 14:28:58&5&1\\\hline
+	3&17.06.2017 16:19:22&6&2\\\hline
+	4&17.06.2017 18:21:31&1&3\\\hline
+\end{tabular}\\
+\pagebreak
+\lstinputlisting{Kunde.java}
+\pagebreak
+\lstinputlisting{Pizza.java}
+\pagebreak
+\lstinputlisting{Bestellung.java}
+\pagebreak
+\section*{Aufgabe 19}
+\includegraphics*[width = \textwidth, height = \textheight, keepaspectratio]{19a.jpeg}
+\pagebreak
+\lstinputlisting{Gui.java}
+\section*{Aufgabe 20}
+
+\begin{enumerate} [a)]
+	\item\phantom{}\\ \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{Aufgabe 20.jpeg}
+	\item \phantom{} [rounds, rounds = 0, return rounds] \\
+	\phantom{} [rounds, rounds = 0, rounds++] \\
+		\phantom{}	[rounds, rounds++, rounds == 2] \\
+		\phantom{} [rounds,rounds++,rounds++] \\
+\phantom{}	[rounds, rounds++, return rounds ]\\
+\phantom{}	[energy, energy = energy - 1, energy > 0] \\
+\phantom{}	[energy, energy = energy - 1, energy = energy - 2] \\
+\phantom{}	[energy, energy = energy - 1, energy = energy - 1] \\
+\phantom{}	[energy, energy = energy - 2, energy > 0] \\
+\phantom{}	[energy, energy = energy - 2, energy = energy - 1] \\
+\phantom{}	[energy, energy = energy - 2, energy = energy - 2] (nicht erreichbar)\\
+\pagebreak
+\item  "\phantom{}Energy = 0"\phantom{} durchläuft Kette 1, "\phantom{}Energy = 5"\phantom{} durchläuft Kette 2 - 10.\\  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{Aufgabe 20 DU.jpeg}
+\end{enumerate}
+\end{document}
