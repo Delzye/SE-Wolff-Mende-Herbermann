@@ -12,6 +12,14 @@ public class Pizza implements java.io.Serializable
     protected double preis;
     protected Collection<Bestellung> liste = new ArrayList<Bestellung>();
     
+    public Pizza(int id, String n, double p, Collection<Bestellung> l)
+    {
+        pizzaid = id;
+        name = n;
+        preis = p;
+        liste = l;
+    }
+    
     public int getPizzaid(){ return pizzaid;}
     public void setPizzaid(int id){ pizzaid = id;}
     

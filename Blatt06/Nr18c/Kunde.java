@@ -11,6 +11,13 @@ public class Kunde implements java.io.Serializable
     protected String name;
     protected Collection<Bestellung> buchung = new ArrayList<Bestellung>();
     
+    public Kunde(int id, String n, Collection<Bestellung> b)
+    {
+        kundenid = id;
+        name = n;
+        buchung = b;
+    }
+    
     public int getKundenid(){ return kundenid;}
     public void setKundenid(int id){ kundenid = id;}
     

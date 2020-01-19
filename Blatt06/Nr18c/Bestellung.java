@@ -9,15 +9,15 @@ import java.time.LocalDate;
 public class Bestellung implements java.io.Serializable
 {   
     protected int buchungsid;
-    protected LocalDate zeitpunkt;
+    protected LocalDate buchungsZeitpunkt;
     private Kunde kunde;
     private Pizza pizza;
     
     public int getBuchungsid(){ return buchungsid;}
     public void setBuchungsid(int id){ buchungsid = id;}
     
-    public LocalDate getZeitpunkt() {return zeitpunkt;}
-    public void setZeitpunkt(LocalDate zeitpunkt) {this.zeitpunkt = zeitpunkt;}
+    public LocalDate getZeitpunkt() {return buchungsZeitpunkt;}
+    public void setZeitpunkt(LocalDate zeitpunkt) {this.buchungsZeitpunkt = zeitpunkt;}
     
     public Kunde getKunde(){ return kunde;}
     public void setKunde(Kunde k){ kunde = k;}
