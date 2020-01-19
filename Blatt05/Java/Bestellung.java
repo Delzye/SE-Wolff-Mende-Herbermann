@@ -8,7 +8,7 @@ class Bestellung{
     public int getBestellungsId(){return bestellungsId;}
     public void setBestellungsId(int bId){bestellungsId =bId;}
 
-    public DateTime getZeitpunkt(){return zeitpunkt;}
+    public LocalDateTime getZeitpunkt(){return zeitpunkt;}
     public void setZeitpunkt(DateTime zp){zeitpunkt = zp;}
 
     Bestellung(Kunde k, Pizza p){

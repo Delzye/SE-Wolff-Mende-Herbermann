@@ -1,10 +1,7 @@
 import java.util.Collection;
 import java.util.ArrayList;
 
-@Entity
 class Kunde {
-    @Id
-    @GeneratedValue
     protected String kundenId;
     protected String name;
     protected Collection<Bestellung> buchung = new ArrayList<Bestellung>();

@@ -1,7 +1,7 @@
 @Stateless
 public class Bestellservice{
     @PersistenceContext
-private EntityManager em;
+private static EntityManager em;
 
 public static void erstelleBestellung(Kunde k, Pizza p){
     Betellung b = new Bestellung(k,p);

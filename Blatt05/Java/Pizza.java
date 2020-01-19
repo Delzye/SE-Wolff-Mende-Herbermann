@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
 class Pizza {
-
-    @Id @GeneratedValue
     protected int pizzaId;
     protected double preis;
     protected String name;
