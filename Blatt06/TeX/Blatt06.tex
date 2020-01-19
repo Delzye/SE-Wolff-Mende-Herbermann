@@ -40,19 +40,19 @@
 
 
 \section*{Aufgabe 18}
-Relation "Kunde"\\
+Relation "Kunde"\\ \\
 \begin{tabular} {|c|c|}
 \rowcolor{Gray}\hline
-\underline{kundenId} \phantom{a}&name\\\hline
+\cellcolor{red!25}\underline{kundenId} \phantom{a}&name\\\hline
 1&Aaron Eckhart\\\hline
 2&Michael Caine\\\hline
 3&Maggie Gyllenhaal\\\hline
 \end{tabular}\\
 
-Relation "Pizza"\\
+Relation "Pizza"\\ \\
 \begin{tabular} {|c|c|c|}
-	\rowcolor{Gray}\hline
-	\underline{pizzaId}&name&preis\\\hline
+	\rowcolor{Gray}\hline 
+	\cellcolor{blue!25}\underline{pizzaId}&name&preis\\\hline
 	1&Hollandaise&5,80\\\hline
 	2&Cipolla&5,80\\\hline
 	3&Tonno&6,80\\\hline
@@ -61,15 +61,17 @@ Relation "Pizza"\\
 	6&Toscana&7,50\\\hline
 \end{tabular}\\
 
-Relation "Bestellung"\\
+Relation "Bestellung"\\ \\
 \begin{tabular} {|c|c|c|c|}
 	\rowcolor{Gray}\hline
-	\underline{buchungsId}&buchungsZeitpunkt \phantom{a}&pizzaId&kundenId\\\hline
+	\underline{buchungsId}&buchungsZeitpunkt \phantom{a}&\cellcolor{blue!25}pizzaId&\cellcolor{red!25}kundenId\\\hline
 	1&17.06.2017 11:58:29&2&1\\\hline
 	2&17.06.2017 14:28:58&5&1\\\hline
 	3&17.06.2017 16:19:22&6&2\\\hline
 	4&17.06.2017 18:21:31&1&3\\\hline
 \end{tabular}\\
+
+Die Fremdschlüssel sind farblich mitsamt Zugehörigkeit zur entsprechenden Relation markiert.
 \pagebreak
 \lstinputlisting{Kunde.java}
 \pagebreak
