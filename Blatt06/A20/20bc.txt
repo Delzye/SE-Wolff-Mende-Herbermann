@@ -1,0 +1,31 @@
+b)
+
+[Variablenname, Wertzuweisung, Nutzung]
+
+0 [rounds,rounds=0,return rounds]
+1 [rounds,rounds=0,rounds++]
+2 [rounds,rounds++,rounds==2]
+3 [rounds,rounds++,return rounds]
+4 [rounds,rounds++,rounds++]
+
+5 [energy,int energy, energy > 0]
+6 [energy,int energy, energy=energy-2]
+7 [energy,int energy, energy=energy-1]
+8 [energy,int energy=energy-2, energy > 0]
+9 [energy,int energy=energy-1, energy > 0]
+
+
+c)
+Testfälle:
+
+energy=3:
+	Durchlaufene DU-Ketten:
+		5,1,2,7,9,4,2,7,9,4,2,6,8,3
+	Es fehlen: 0,6
+energy=0
+	Durchlaufene DU-Ketten:
+		5,0
+
+
+6 ist nicht durchlaufbar?
+	
