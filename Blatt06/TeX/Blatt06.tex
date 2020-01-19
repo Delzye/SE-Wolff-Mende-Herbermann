@@ -46,7 +46,7 @@ Sekundärschlüssel: \textbf{sk}\\
 Relation "Kunde" (pk: kundenId, sk: buchungsId)\\
 \begin{tabular} {|c|c|}
 \rowcolor{Gray}\hline
-kundenId \phantom{a}&name\\\hline
+\underline{kundenId} \phantom{a}&name\\\hline
 1&Aaron Eckhart\\\hline
 2&Michael Caine\\\hline
 3&Maggie Gyllenhaal\\\hline
@@ -55,7 +55,7 @@ kundenId \phantom{a}&name\\\hline
 Relation "Pizza" (pk: pizzaId, sk: buchungsId)\\
 \begin{tabular} {|c|c|c|}
 	\rowcolor{Gray}\hline
-	pizzaId&name&preis\\\hline
+	\underline{pizzaId}&name&preis\\\hline
 	1&Hollandaise&5,80\\\hline
 	2&Cipolla&5,80\\\hline
 	3&Tonno&6,80\\\hline
@@ -67,7 +67,7 @@ Relation "Pizza" (pk: pizzaId, sk: buchungsId)\\
 Relation "Bestellung" (pk: buchungsId, sk: kundenId (Kunde), pizzaId (Pizza))\\
 \begin{tabular} {|c|c|c|c|}
 	\rowcolor{Gray}\hline
-	buchungsId&buchungsZeitpunkt \phantom{a}&pizza&kunde\\\hline
+	\underline{buchungsId}&buchungsZeitpunkt \phantom{a}&pizza&kunde\\\hline
 	1&17.06.2017 11:58:29&2&1\\\hline
 	2&17.06.2017 14:28:58&5&1\\\hline
 	3&17.06.2017 16:19:22&6&2\\\hline
