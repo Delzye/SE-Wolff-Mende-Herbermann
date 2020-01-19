@@ -40,10 +40,7 @@
 
 
 \section*{Aufgabe 18}
-
-Primärschlüssel: \textbf{pk}\\
-Sekundärschlüssel: \textbf{sk}\\
-Relation "Kunde" (pk: kundenId, sk: buchungsId)\\
+Relation "Kunde"\\
 \begin{tabular} {|c|c|}
 \rowcolor{Gray}\hline
 \underline{kundenId} \phantom{a}&name\\\hline
@@ -52,7 +49,7 @@ Relation "Kunde" (pk: kundenId, sk: buchungsId)\\
 3&Maggie Gyllenhaal\\\hline
 \end{tabular}\\
 
-Relation "Pizza" (pk: pizzaId, sk: buchungsId)\\
+Relation "Pizza"\\
 \begin{tabular} {|c|c|c|}
 	\rowcolor{Gray}\hline
 	\underline{pizzaId}&name&preis\\\hline
@@ -64,10 +61,10 @@ Relation "Pizza" (pk: pizzaId, sk: buchungsId)\\
 	6&Toscana&7,50\\\hline
 \end{tabular}\\
 
-Relation "Bestellung" (pk: buchungsId, sk: kundenId (Kunde), pizzaId (Pizza))\\
+Relation "Bestellung"\\
 \begin{tabular} {|c|c|c|c|}
 	\rowcolor{Gray}\hline
-	\underline{buchungsId}&buchungsZeitpunkt \phantom{a}&pizza&kunde\\\hline
+	\underline{buchungsId}&buchungsZeitpunkt \phantom{a}&pizzaId&kundenId\\\hline
 	1&17.06.2017 11:58:29&2&1\\\hline
 	2&17.06.2017 14:28:58&5&1\\\hline
 	3&17.06.2017 16:19:22&6&2\\\hline
@@ -94,8 +91,8 @@ Relation "Bestellung" (pk: buchungsId, sk: kundenId (Kunde), pizzaId (Pizza))\\
 \phantom{}	[energy, energy = energy - 1, energy = energy - 1] \\
 \phantom{}	[energy, energy = energy - 2, energy > 0] \\
 \phantom{}	[energy, energy = energy - 2, energy = energy - 1] \\
-\phantom{}	[energy, energy = energy - 2, energy = energy - 2] \\
+\phantom{}	[energy, energy = energy - 2, energy = energy - 2] (nicht erreichbar)\\
 \pagebreak
-\item  "\phantom{}Energy = 0"\phantom{} durchläuft Kette 1, "\phantom{}Energy = 4"\phantom{} durchläuft Kette 2 - 11.\\  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{Aufgabe 20 DU.jpeg}
+\item  "\phantom{}Energy = 0"\phantom{} durchläuft Kette 1, "\phantom{}Energy = 5"\phantom{} durchläuft Kette 2 - 10.\\  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{Aufgabe 20 DU.jpeg}
 \end{enumerate}
 \end{document}
