@@ -1,0 +1,63 @@
+%!TEX TS-program = pdflatex
+%!TEX TS-options = -shell-escape
+% Author: Phil Steinhorst, p.st@wwu.de
+% https://github.com/phist91/latex-templates
+
+\newcommand{\obenlinks}{Software Engineering}		% hier Name der Veranstaltung eintragen
+\input{config.tex}	% Präambel (ohne die geht nichts!)
+\usepackage{float}
+
+\begin{document}
+	\begin{center}
+		\begin{tabular}{|rlp{4cm}rll|}
+		\hline
+		 \textbf{Übungsblatt:} & 6 &   & \textbf{1. Abgabepartner:} & Anton Mende & (461 328)  \\
+		      &  &  & \textbf{2. Abgabepartner:} & Anika Herbermann & (461 655) \\ 
+		      &  &  &  \textbf{3. Abgabepartner:} & Matthias Wolff & (458 766) \\
+		      \hline
+		\end{tabular}
+	\end{center}
+	\section*{Aufgabe 18 a+b)}
+		Tabelle zur Klasse Kunde: \\
+		\begin{tabular}{|lll|}
+			\hline
+			\underline{KundenId} & Vorname & Nachname \\
+			\hline
+			001 & Peter & Strautmann \\
+			007 & James & Bond \\
+			\hline
+		\end{tabular}
+		\\ \\
+		Tabelle zur Klasse Bestellung: \\
+		\begin{tabular}{|llll|}
+			\hline
+			\underline{BuchungsId} & Buchungszeitpunkt & KundenId & PizzaId\\
+			\hline
+			021 & 25:01:2016 & 007 & 042\\
+			003 & 12:02:2018 & 001 & 036\\
+			\hline
+		\end{tabular}
+		\\ \\
+		Tabelle zur Klasse Pizza: \\
+		\begin{tabular}{|lll|}
+			\hline
+			\underline{PizzaId} & Name & Preis\\
+			\hline
+			036 & Schinkenpizza & 3,50€ \\
+			042 & Pizza Hawaii & 4,00€ \\
+			\hline
+		\end{tabular}
+	\section*{Aufgabe 20}
+		\subsection*{b)}
+			\textbf{[rounds, rounds = 0, rounds++]} \\
+			\textbf{[rounds, rounds ++, rounds ++]} \\
+			\textbf{[rounds, rounds = 0, return rounds]} \\
+			\textbf{[energy, int energy, energy > 0]} \\
+			\textbf{[energy, energy = energy - 2, energy > 0]} \\
+			\textbf{[energy, energy = energy - 1, energy > 0]}
+		\subsection*{c)}
+			\begin{enumerate}
+				\item Testfall: energy = 0
+				\item Testfall: energy = 3
+			\end{enumerate}
+\end{document}
